@@ -3,9 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Property Details</title>
+    <title>Property Details with Leaflet</title>
     <link rel="stylesheet" href="./Styles/listing-style.css">
-    <script src="https://kit.fontawesome.com/ffc82079a3.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        
+        #map {
+            height: 400px; 
+            width: 100%; 
+            margin-top: 20px;
+        }
+    </style>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
 <body>
     <?php session_start(); ?>
@@ -67,6 +76,19 @@
             } else {
                 echo '<i class="fa-solid fa-house fa-3x"></i>'; // Placeholder icon
             }
+
+            // Display map using Leaflet
+            echo '<div id="map"></div>';
+            echo '<script>
+                const map = L.map("map").setView([-34.0, 18.0], 15); 
+                L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                    maxZoom: 19,
+                    attribution: "© OpenStreetMap"
+                }).addTo(map);
+                L.marker([-34.0, 18.0]).addTo(map)
+                    .bindPopup("Your Property Location")
+                    .openPopup();
+            </script>';
 
             // Contact information section 
             echo '<h2>Contact Information</h2>';
